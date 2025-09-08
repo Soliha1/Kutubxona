@@ -4,7 +4,7 @@ class Talaba(models.Model):
     ism=models.CharField(max_length=355)
     guruh=models.CharField()
     kurs=models.CharField(choices=(('1', '1'), ('2', '2'),('3','3'),('4','4')))
-    kitob_soni=models.PositiveSmallIntegerField
+    kitob_soni=models.IntegerField()
 
     def __str__(self):
         return self.ism

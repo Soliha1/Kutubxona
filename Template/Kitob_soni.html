@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1> Kitob soni 10 tadan kichik bolgan mualliflarning kitoblari</h1>
+<ol>
+        {% for  Kitob in KItobi_soni %}
+        <li>{{ Kitob.nom}}</li>
+        {% endfor %}
+
+    </ol>
+
+
+</body>
+</html>
