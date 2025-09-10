@@ -6,6 +6,12 @@
 </head>
 <body>
     <h1>Mualliflar</h1>
+    <hr>
+<form>
+    <input type="text"  name="search" placeholder="ism boyicha qidiring: ">
+    <button>Search</button>
+</form>
+<hr>
 <ol>
         {% for muallif in mualliflar %}
     <p>
@@ -14,6 +20,9 @@
         <a href="/muallif/{{muallif.id}}/">
         {{muallif.ism}}
             </a>
+        <a href="/mualliflar/{{muallif.id}}/delete/">
+            <button>O'chirish</button>
+        </a>
         </p>
         {% endfor %}
     </ol>

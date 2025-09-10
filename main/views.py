@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 
 from django.http import HttpResponse
 from .models import *
@@ -12,10 +12,13 @@ def home_views(request):
 
 def muallif_views(request):
     mualliflar=Muallif.objects.all()
+    search = request.GET.get('search')
+    if search:
+        mualliflar = Muallif.objects.filter(ism__contains=search)
     context={
         'mualliflar':mualliflar,
     }
-    return render(request,'students.html',context)
+    return render(request,'mualliflar.html',context)
 
 def muallif_details_views(request, pk):
     muallif=Muallif.objects.get(id=pk)
@@ -26,6 +29,7 @@ def muallif_details_views(request, pk):
 
 def Kitoblar_views(request):
     kitoblar=Kitob.objects.all()
+
     context = {
         'kitoblar': kitoblar
     }
@@ -33,6 +37,7 @@ def Kitoblar_views(request):
 
 
 def Kitob_details_views(request, pk):
+
     kitob = Kitob.objects.get(id=pk)
     context = {
         'kitob': kitob,
@@ -42,6 +47,9 @@ def Kitob_details_views(request, pk):
 
 def Recordlar_views(request):
     records=Record.objects.all()
+    search = request.GET.get('search')
+    if search:
+        records=Record.objects.filter(talaba__ism__contains=search)
     context={
         'records':records,
     }
@@ -108,9 +116,20 @@ def Kitob_soni_10_tadan_kichik_views(request):
     return render(request, 'Kitob_soni.html', context)
 
 
-def recordlar_details_views(request, pk):
+def recordlar_search_views(request, pk):
     recordlar=Record.objects.filter(id=pk)
     context={
         'recordlar':recordlar,
     }
     return render(request, 'recordlar_details.html', context)
+
+def Muallif_delete_views(request, pk):
+    mualliflar=get_object_or_404(Muallif, pk=pk)
+    mualliflar.delete()
+    return redirect('/mualliflar/')
+
+def recordlar_delete_views(request, pk):
+    recordlar = get_object_or_404(Record, pk=pk)
+    recordlar.delete()
+    return redirect('/recordlar/')
+

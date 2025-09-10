@@ -7,17 +7,26 @@
 <body>
 <h1>Records</h1>
 <hr>
+<form>
+    <input type="text"  name="search" placeholder="ism boyicha qidiring: ">
+    <button>Search</button>
+</form>
+<hr>
 <ol>
 
         {% for record in records %}
     <p>
 
         {{forloop.counter}}
-        <a href="/record/{{records.id}}/">
-        {{record.talaba}}
+        <a href="/recordlar/{{record.id}}/">
+        {{record.id}},{{record.talaba}}
+
             </a>
+          <a href="/recordlar/{{record.id}}/delete/">
+            <button>O'chirish</button>
+        </a>
         </p>
         {% endfor %}
-<ol>
+</ol>
 </body>
 </html>
