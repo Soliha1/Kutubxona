@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.http import HttpResponse
+from django.template.context_processors import request
+
+from core.muallif_qoshish import MuallifForm
 from .models import *
 
 def hello_views(request):
@@ -28,16 +31,27 @@ def muallif_details_views(request, pk):
     return render(request, 'muallifs_details.html',context)
 
 def Kitoblar_views(request):
+    if request.method== 'POST':
+        Kitob.objects.create(
+            nom=request.POST.get('nom'),
+            janr=request.POST.get('janr'),
+            sahifa=request.POST.get('sahifa'),
+            muallif=get_object_or_404(Muallif, id=request.POST.get('muallif_id')),
+        )
+        return redirect('/kitoblar/')
+
     kitoblar=Kitob.objects.all()
+    mualliflar=Muallif.objects.all()
 
     context = {
-        'kitoblar': kitoblar
+        'kitoblar': kitoblar,
+        'mualliflar':mualliflar,
+
     }
     return render(request, 'Kitoblar.html', context)
 
 
 def Kitob_details_views(request, pk):
-
     kitob = Kitob.objects.get(id=pk)
     context = {
         'kitob': kitob,
@@ -133,3 +147,51 @@ def recordlar_delete_views(request, pk):
     recordlar.delete()
     return redirect('/recordlar/')
 
+
+def Talabalar_views(request):
+    if request.method=='POST':
+        Talaba.objects.create(
+            ism=request.POST.get('ism'),
+            guruh=request.POST.get('guruh'),
+            kurs=request.POST.get('kurs'),
+            kitob_soni=request.POST.get('kitob_soni'),
+        )
+        Talabalar=Talaba.objects.all()
+        context={
+            'Talabalar':Talabalar,
+        }
+
+        return redirect('/talabalar/')
+    return render(request, 'Talabalar.html')
+
+
+def Muallif_update_views(request, pk):
+    author=get_object_or_404(Muallif, id=pk)
+    if request.method=='POST':
+        author.ism=request.POST.get('ism')
+        author.jins=request.POST.get('jins')
+        author.tugilgan_sana=request.POST.get('tugilgan_sana')
+        author.kitob_soni=request.POST.get('kitob_soni')
+        author.save()
+
+        return redirect('/muallif/')
+    context={
+        'author':author,
+    }
+    return render(request, 'student-update.html', context)
+
+
+
+def Mualif_qoshshish_views(request):
+    authors=Muallif.objects.all()
+    if request.method == 'POST':
+        form = MuallifForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('authors')
+
+    context = {
+        'authors': authors,
+        'form': form,
+    }
+    return render(request, 'authors.html', context)

@@ -23,9 +23,10 @@ urlpatterns = [
     path('',home_views),
     path('mualliflar/',muallif_views),
     path('mualliflar/<int:pk>/delete/', Muallif_delete_views),
-    path('muallif/<int:pk>/',muallif_details_views),
-    path('kitoblar_haqida/',Kitoblar_views),
-    path('kitoblar/<int:pk>/',Kitob_details_views),
+    path('mualliflar/<int:pk>/',muallif_details_views),
+    path('muallif/<int:pk>/update/', Muallif_update_views),
+    path('kitoblar/',Kitoblar_views),
+    path('kitoblar_haqida/<int:pk>/',Kitob_details_views),
     path('recordlar/',Recordlar_views),
     path('recordlar/<int:pk>/delete/',recordlar_delete_views),
     path('tirik_mualliflar/',Tirik_mualliflar_views),
@@ -37,6 +38,7 @@ urlpatterns = [
     path('Yoshi_katta_mualliflar/',Yoshi_kattalar_views),
     path('Kitob_soni_10_kichik/', Kitob_soni_10_tadan_kichik_views),
     path('recordlar/<int:pk>/', recordlar_search_views),
+    path('talabalar/',Talabalar_views),
 
 
 ]

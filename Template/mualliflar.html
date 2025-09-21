@@ -23,12 +23,17 @@
         <a href="/mualliflar/{{muallif.id}}/delete/">
             <button>O'chirish</button>
         </a>
+        <a href="/muallif/{{muallif.id}}/update/">
+<button> Tahrirlash</button>
+</a>
         </p>
         {% endfor %}
     </ol>
-
-
-
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <button>Qoshish</button>
+</form>
 
 </body>
 </html>

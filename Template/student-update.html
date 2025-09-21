@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Muallif | Update</title>
+</head>
+<body>
+<h1>{{ author.ism }}ni malumotlarini o'zgartirish</h1>
+<hr>
+
+<form method="post">
+    {% csrf_token %}
+    <label>Ism : </label>
+    <input type="text" name="ism" id="Ism" value="{{author.ism}}">
+    <br><br>
+    <label>Jins : </label>
+    <input type="text" name="jins" id="Jins" value="{{author.jins}}">
+        <br><br>
+    <label>Tugilgan_sana : </label>
+    <input type="date" name="tugilgan_sana" id="Tugilgan_sana" value="{{author.tugilgan_sana}}">
+        <br><br>
+    <label>Kitob soni : </label>
+    <input type="number" name="kitob_soni" id="Kitob_soni" value="{{author.kitob_soni}}">
+    <br><br>
+    <hr>
+
+     <button >Saqlash</button>
+
+</form>
+</body>
+</html>
